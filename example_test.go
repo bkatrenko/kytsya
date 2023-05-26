@@ -1,6 +1,7 @@
 package kytsya
 
 import (
+	"errors"
 	"fmt"
 	"strconv"
 	"testing"
@@ -118,4 +119,19 @@ func TestFunctionalEra(t *testing.T) {
 	fmt.Println(Reduce([]int{1, 2, 3, 4, 5, 6}, func(val, acc int) int {
 		return val + acc
 	}))
+}
+
+func TestMapErr(t *testing.T) {
+	res, err := MapErr([]int{1, 2, 3, 4, 5}, func(i, val int) (string, error) {
+		if val == 3 {
+			return "", errors.New("it's a 3!!!")
+		}
+
+		return strconv.Itoa(val), nil
+	})
+	if err != nil {
+		//panic(err) could be here
+	}
+
+	fmt.Println(res) // result will print empty slice while we got an error during the iteration.
 }

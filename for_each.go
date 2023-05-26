@@ -1,5 +1,6 @@
 package kytsya
 
+// ForChan will range through the channel until its closed
 func ForChan[T any](ch chan T, f func(val T)) {
 	for val := range ch {
 		f(val)

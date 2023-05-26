@@ -193,7 +193,9 @@ func TestForEachErr_OK(t *testing.T) {
 
 func TestMap(t *testing.T) {
 	input := []uint32{1, 2, 3, 4, 5}
-	out := Map(input, func(i int, val uint32) string { return fmt.Sprint(val) })
+	out := Map(input, func(i int, val uint32) string {
+		return fmt.Sprint(val)
+	})
 
 	expectation := []string{"1", "2", "3", "4", "5"}
 	if !reflect.DeepEqual(out, expectation) {
@@ -237,13 +239,15 @@ func TestMapErr_OK(t *testing.T) {
 }
 
 func TestFilter(t *testing.T) {
-	out := Filter([]int32{-2, -1, 0, 1, 2}, func(i int, val int32) bool {
-		if val < 0 {
-			return false
-		}
+	out := Filter(
+		[]int32{-2, -1, 0, 1, 2},
+		func(i int, val int32) bool {
+			if val < 0 {
+				return false
+			}
 
-		return true
-	})
+			return true
+		})
 
 	expectation := []int32{0, 1, 2}
 	if !reflect.DeepEqual(out, expectation) {

@@ -72,3 +72,5 @@ While kytsya fetching panic, panic message and a stack trace returns as a normal
 	})
 ```
 Every member of "data" slice will be handled in a separate goroutine ("handler") and results will be returned in resCh channel that will be closed after all tasks are done.
+
+No external dependencies in the kit, pure std golang :)

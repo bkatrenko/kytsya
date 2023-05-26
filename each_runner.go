@@ -1,6 +1,7 @@
 package kytsya
 
 type (
+	// EachRunner could be used in case of needing to handle every list member in different goroutine.
 	EachRunner[T any, V any] struct {
 		data    []T
 		recover bool

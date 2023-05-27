@@ -2,6 +2,7 @@ package kytsya
 
 import (
 	"errors"
+	"sync"
 	"sync/atomic"
 	"testing"
 )
@@ -91,9 +92,14 @@ func BenchmarkErrorBox(b *testing.B) {
 	b.Run("pure Go", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			resCh := make(chan Result[string], 4)
+			wg := &sync.WaitGroup{}
 
 			for i := 0; i < 4; i++ {
+				wg.Add(1)
+
 				go func() {
+					defer wg.Done()
+
 					defer func() {
 						if err := recover(); err != nil {
 							resCh <- Result[string]{Err: errors.New("error")}
@@ -104,8 +110,12 @@ func BenchmarkErrorBox(b *testing.B) {
 				}()
 			}
 
-			for i := 0; i < 4; i++ {
-				_ = <-resCh
+			go func() {
+				wg.Wait()
+				close(resCh)
+			}()
+
+			for range resCh {
 			}
 		}
 	})
@@ -127,8 +137,7 @@ func BenchmarkErrorBox(b *testing.B) {
 					return Result[string]{Data: "🐈"}
 				}).Run()
 
-			ForChan(resCh,
-				func(val Result[string]) {})
+			ForChan(resCh, func(val Result[string]) {})
 		}
 	})
 }

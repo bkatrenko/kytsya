@@ -16,7 +16,7 @@ Cases where kytsya will shine:
 * Need recovery handlers, but don't want to manually control every case that should be covered with deferred recoveries? Here you could find __WithRecover()__ builder, that makes recovery graceful!
 * Run goroutins that returns results / need to make everything stable and built in one manner? Kytsya will help to do it with __ErrorBox__ or __ForEachRunner__.
 * Every developer in a big team uses its own threading style? Have a mix of channels, waitgroups, "res" slices? Kytsya gives one approach for everything.
-* Work with data? __ForEach__, __Map__, __Reduce__ will definetly what is missing in go's std lib.
+* Work with data? __ForEach__, __Map__, __Reduce__, __Filter__ - definetly what is missing in go's std lib.
 
 Kytsya is not a framework, it's a toolkit that gives an ability, but not forces developers to use the one way.
 Here is only small part from what it is doing:

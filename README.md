@@ -113,6 +113,19 @@ Here it is!
 - The way to do a beautiful things quick and graceful
 - Most of its controller implements laziness - no work until result is requested (but not them all :))
 
+## Benchmarking
+Benchmarks included in the repo.
+Here is the results for the most ErrTaskRunner:
+```
+goos: darwin
+goarch: arm64
+pkg: github.com/bkatrenko/kytsya
+BenchmarkErrorBox/pure_Go-10         	  524178	      2210 ns/op	     360 B/op	       8 allocs/op
+BenchmarkErrorBox/kytsunya-10        	  443697	      2333 ns/op	     512 B/op	      12 allocs/op
+PASS
+ok  	github.com/bkatrenko/kytsya	3.584s
+```
+
 ## also:
 - No external dependencies in the kit, pure std golang :)
 - 100% test coverage

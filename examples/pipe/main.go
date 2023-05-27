@@ -20,7 +20,7 @@ func main() {
 	kytsya.NewBox().
 		WithWaitGroup(). // <-- add a WaitGroup
 		WithRecover().   // <-- add a recovery handler
-		AddTask(func() { // <-- task for read file byte by byte
+		AddTask(func() { // <-- task for reading file byte by byte
 			defer close(resCh)
 			readBytes(resCh)
 		}).

@@ -125,7 +125,10 @@ BenchmarkErrorBox/kytsunya-10        	  443697	      2333 ns/op	     512 B/op	  
 PASS
 ok  	github.com/bkatrenko/kytsya	3.584s
 ```
+## Examples:
+./examples
+pipe: pattern with kytsya (https://go.dev/blog/pipelines)
 
-## also:
+## Also:
 - No external dependencies in the kit, pure std golang :)
 - 100% test coverage

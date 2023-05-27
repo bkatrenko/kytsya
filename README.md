@@ -115,7 +115,7 @@ Here it is!
 
 ## Benchmarking
 Benchmarks included in the repo.
-Here is the results for the most ErrTaskRunner:
+Here is the results for the ErrTaskRunner (handler for a group of goroutines that returns a results):
 ```
 goos: darwin
 goarch: arm64

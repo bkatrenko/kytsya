@@ -129,3 +129,13 @@ func Reduce[T any, V any](input []T, f func(val T, acc V) V) V {
 
 	return acc
 }
+
+// ChanToSlice converts channel content to slice.
+// Function expect channel to be closed at the end.
+func ChanToSlice[T any](input chan T) (res []T) {
+	ForChan[T](input, func(val T) {
+		res = append(res, val)
+	})
+
+	return
+}

@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
+	"sort"
 	"testing"
 )
 
@@ -263,5 +264,38 @@ func TestReduce(t *testing.T) {
 	expectation := 1 + 2 + 3 + 4 + 5
 	if out != uint32(expectation) {
 		t.Fatalf("result is not expected: \ngot: %v\nwant: %v\n", out, expectation)
+	}
+}
+
+func TestChanToSlice(t *testing.T) {
+	ch := NewErrorBox[int]().
+		AddTask(func() Result[int] {
+			return Result[int]{Data: 1}
+		}).
+		AddTask(func() Result[int] {
+			return Result[int]{Data: 2}
+		}).
+		AddTask(func() Result[int] {
+			return Result[int]{Data: 3}
+		}).
+		AddTask(func() Result[int] {
+			return Result[int]{Data: 4}
+		}).
+		AddTask(func() Result[int] {
+			return Result[int]{Data: 5}
+		}).
+		Run()
+
+	out := ChanToSlice[Result[int]](ch)
+	ints := Map[Result[int], int](out, func(i int, val Result[int]) int {
+		return val.Data
+	})
+
+	expectation := []int{1, 2, 3, 4, 5}
+
+	sort.Slice(ints, func(i, j int) bool { return ints[i] < ints[j] })
+
+	if !reflect.DeepEqual(ints, expectation) {
+		t.Fatalf("result is not expected: \ngot: %v\nwant: %v\n", ints, expectation)
 	}
 }

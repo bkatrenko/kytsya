@@ -80,9 +80,7 @@ func (r *ErrRunner[T]) Spawn(f func() Result[T]) *ErrRunner[T] {
 			defer errorIfPanic(r.errCh)
 		}
 
-		res := f()
-
-		r.errCh <- res
+		r.errCh <- f()
 	}()
 
 	return r
